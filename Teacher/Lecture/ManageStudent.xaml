@@ -21,7 +21,7 @@
                     <TextBox x:Name="StudentNameTextBox"></TextBox>
                     <Label>学号</Label>
                     <TextBox x:Name="StudentNumberTextBox"></TextBox>
-                    <Button Click="SubmitInfo_Click"></Button>
+                    <Button Click="SubmitInfo_Click">确定添加</Button>
                 </StackPanel>
 
             </Controls:Flyout>

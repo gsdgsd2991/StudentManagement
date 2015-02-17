@@ -18,7 +18,7 @@ namespace Data
         {
             if(dbcontext == null)
             {
-                dbcontext = (new DbFactory()).GetContext();
+                dbcontext = DbFactory.GetContext();
             }
         }
 

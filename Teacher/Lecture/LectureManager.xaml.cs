@@ -26,6 +26,11 @@ namespace Teacher.Lecture
         public LectureManager()
         {
             InitializeComponent();
+            AddTile();
+        }
+
+        public void AddTile()
+        {
             if (LoginStatus.Teacher.Lectures != null)
             {
                 foreach (var i in LoginStatus.Teacher.Lectures)
@@ -48,14 +53,11 @@ namespace Teacher.Lecture
            var input = await DialogManager.ShowInputAsync(this, "课程名称", "");
            if (input != null && input.Trim() != "")
            {
-               var newLecture = new Tile();
-               newLecture.Title = input;
-               var rightClickMenu = FindResource("RightClickContextMenu");
-               newLecture.ContextMenu = rightClickMenu as ContextMenu;
+               
                teacher.AddLecture(input);
+               LecturesPanel.Children.RemoveRange(0, LecturesPanel.Children.Count);
                //var x = Resources.Values;
-               LecturesPanel.Children.Add(newLecture);
-               LoginStatus.Teacher.Lectures = teacher.GetLectures(LoginStatus.Teacher);
+               AddTile();
            }
         }
 

@@ -28,7 +28,7 @@ namespace Teacher.Lecture
         {
             _lectureSelected = lectureSelected;
             InitializeComponent();
-            lectureSelected.Students = _controller.GetStudents(lectureSelected);
+            lectureSelected.Students = lectureSelected.Students;//_controller.GetStudents(lectureSelected);
             foreach(var i in lectureSelected.Students)
             {
                 AddTile(i.Sno, i.Name);
@@ -41,16 +41,14 @@ namespace Teacher.Lecture
 
         private void DeleteFromLecture_Click(object sender, RoutedEventArgs e)
         {
-            var student = _studentService.where(a => a.Sno == (sender as Tile).Title.Trim(),false).FirstOrDefault();
-            if(student != null)
-            {
-                _studentService.Delete(student.ID);
-            }
+           Tile tile = ContextMenuService.GetPlacementTarget(LogicalTreeHelper.GetParent(sender as MenuItem)) as Tile;
+           _controller.DeleteStudent(tile.Title.Trim());      
         }
        
         private void GenerateNewMark_Click(object sender, RoutedEventArgs e)
         {
-            var student = _studentService.where(a => a.Sno == (sender as Tile).Title.Trim(),false).FirstOrDefault();
+            Tile tile = ContextMenuService.GetPlacementTarget(LogicalTreeHelper.GetParent(sender as MenuItem)) as Tile;
+            var student = _controller.GetStudent(tile.Title.Trim());
             GenerateSecureNumber(student);
         }
         //弹出添加学生窗口
@@ -68,7 +66,7 @@ namespace Teacher.Lecture
         //确定添加学生，先查数据库有没有学生，信息是否一致，没有就添加，学号和姓名不一致什么都不做
         private void AddStudentConfirm_Click(object sender, RoutedEventArgs e)
         {
-            var original = _studentService.where(a=>a.Sno == StudentNumberTextBox.Text.Trim(),true).FirstOrDefault();
+            var original = _controller.GetStudent(StudentNumberTextBox.Text.Trim());//_studentService.where(a=>a.Sno == StudentNumberTextBox.Text.Trim(),true).FirstOrDefault();
             if(original == null)
             {
                 var newStudent = new Core.Model.Student
@@ -78,8 +76,7 @@ namespace Teacher.Lecture
                    
                 };
                 newStudent.Lectures.Add(_lectureSelected);
-                _studentService.Create(newStudent);
-                _studentService.Save();
+                _controller.AddStudent(newStudent);
                 AddTile(newStudent.Sno, newStudent.Name);
                 GenerateSecureNumber(newStudent);
             }
@@ -87,8 +84,7 @@ namespace Teacher.Lecture
             {
                 if(original.Lectures.Where(a=>a.ID == _lectureSelected.ID).FirstOrDefault() ==null)
                 {
-                    original.Lectures.Add(_lectureSelected);
-                    _studentService.Save();
+                    _controller.AddLecture(original.Sno, _lectureSelected.ID);
                     AddTile(original.Sno, original.Name);
                 }
             }
@@ -116,7 +112,17 @@ namespace Teacher.Lecture
 
         private void SubmitInfo_Click(object sender, RoutedEventArgs e)
         {
+            var stu = new Core.Model.Student
+            {
+                Name = StudentNameTextBox.Text,
+                Sno = StudentNumberTextBox.Text,
+               
+            };
+            
+            _controller.AddStudent(stu);
 
+            _controller.AddLecture(stu.Sno, _lectureSelected.ID);
+            AddTile(stu.Sno, stu.Name);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Core.Model
     {
         public string Name { get; set; }
 
-        public virtual IEnumerable<Student> Students { get; set; }
+        public virtual List<Student> Students { get; set; }
 
         //public virtual IEnumerable<Teacher> Teacher { get; set; }
         public virtual Teacher teacher { get; set; }

@@ -10,22 +10,22 @@ namespace Data
 {
     public interface IDbFactory
     {
-        DbContext GetContext();
+      // static DbContext GetContext();
     }
 
     public class DbFactory:IDbFactory
     {
-        private readonly DbContext dbContext;
+        private static readonly DbContext dbContext = new Db();
 
         public DbFactory()
         {
            // Database.SetInitializer<Db>(new DropCreateDatabaseIfModelChanges<Db>());
            
-            dbContext = new Db();
+            //dbContext = new Db();
             
             dbContext.Database.CreateIfNotExists();
             dbContext.Database.Initialize(true);
-            if(((Db)dbContext).Teachers.Count(a=>a.Name == "Admin")<0)
+            if(((Db)dbContext).Teachers.Count(a=>a.Name == "Admin")<=0)
             {var teacher = new Core.Model.Teacher();
             teacher.Name = "Admin";
             
@@ -33,6 +33,16 @@ namespace Data
             ((Db)dbContext).Teachers.Add(teacher);
             dbContext.SaveChanges();
             }
+            var modelBuilder = new DbModelBuilder();
+            modelBuilder.Entity<Core.Model.Lecture>()
+                .HasMany(e => e.Students)
+                .WithMany(e => e.Lectures)
+                .Map(m =>
+                {
+                    m.ToTable("StudentLecture");
+                    m.MapLeftKey("ID");
+                    m.MapRightKey("ID");
+                });
            /* if(!dbContext.Database.Exists())
             {
                 ((IObjectContextAdapter)dbContext).ObjectContext.CreateDatabase();
@@ -40,7 +50,7 @@ namespace Data
             
         }
 
-        public DbContext GetContext()
+        public static DbContext GetContext()
         {
             return dbContext;
         }
