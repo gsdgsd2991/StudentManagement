@@ -1,0 +1,14 @@
+﻿<Controls:MetroWindow x:Class="Teacher.Question.RaiseQuestion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        Title="RaiseQuestion" Height="300" Width="300">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel>
+        <!--显示学生Til,点击学生tile以后显示打分页面-->
+        <WrapPanel>
+            
+        </WrapPanel>
+    </StackPanel>
+    </ScrollViewer>
+</Controls:MetroWindow>

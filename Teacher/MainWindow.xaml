@@ -1,0 +1,124 @@
+﻿<Controls:MetroWindow   x:Class="Teacher.MainWindow"
+                        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        Title="MainWindow" Height="386.842" Width="559.211"
+        >
+    <StackPanel x:Name="stackPanel">
+    <Menu>
+            <MenuItem Header="文件">
+               <!-- <MenuItem Header="导入文件">
+                    <MenuItem Header="导入课程信息"></MenuItem>
+                    <MenuItem Header="导入学生信息"></MenuItem>
+                    <MenuItem Header="导入教师信息"></MenuItem>
+                </MenuItem>-->
+                <MenuItem Header="导出文件">   
+                    <MenuItem Header="导出学生信息"></MenuItem>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="用户">
+                <MenuItem Header="注销"></MenuItem>
+                <MenuItem Header="登陆" Click="LoginIn_Click"></MenuItem>
+                <MenuItem Header="管理课程（需登录）" Click="ManageLecture_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="签到">
+                <MenuItem Header="开始签到" Click="StartCheckIn_Click"></MenuItem>
+                <MenuItem Header="结束签到" Click="EndCheckIn_Click"></MenuItem>
+                <MenuItem Header="手动签到" Click="CheckInWithoutNet_Click"></MenuItem>
+            </MenuItem>
+    </Menu>
+    <TabControl>
+        <TabItem Header="提问" >
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <WrapPanel>  
+                        <!--教师当场想到的问题-->
+                        <Button>临时提问</Button>
+                        <!--显示各个学生回答问题的情况-->
+                        <Button>题目回答情况</Button>
+                        <!--导入教师写好的题目-->
+                        <Button Content="导入题目"/>
+                        <!--只显示当前教师创建的题目-->
+                        <Label>只显示我创建的题目：</Label>
+                        <CheckBox x:Name="ShowQuestionByMine"/>
+                        
+                       
+                    </WrapPanel>
+                    <!--显示题目信息-->
+                    <DataGrid x:Name="QuestionsDataGrid">
+                        <DataGrid.Columns>
+                         
+                        </DataGrid.Columns>
+                    </DataGrid>
+                        
+                </StackPanel>
+            </ScrollViewer>
+
+
+        </TabItem>
+        <TabItem x:Name="homeworkTab" Header="作业" AllowDrop="True">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <WrapPanel>
+                        <Label>布置作业：</Label>
+                        <TextBox x:Name="fileNameTextBox" MinWidth="100"></TextBox>
+                        <Button x:Name="fileSelectButton">选择文件</Button>
+                            <Button x:Name="giveFileButton">分发作业</Button>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label>作业收取：</Label>
+                        <TextBox x:Name="folderNameTextBox" MinWidth="100"></TextBox>
+                        <Button x:Name="folderSelectButton">选择文件夹</Button>
+                         <Button x:Name="StartGetFileButton">开始收取</Button>
+                    </WrapPanel>
+                        <WrapPanel x:Name="fileViewerStackPanel">
+                        
+                    </WrapPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+        <TabItem Header="设置">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <Expander x:Name="DataMethodExpander" Header="数据获取方式">
+                        <StackPanel>
+                            <WrapPanel>
+                                <Label>本地存储方式：</Label>
+                                <CheckBox x:Name="localDatabaseMethodCheckBox"></CheckBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label>远程数据库方式：</Label>
+                                <CheckBox x:Name="RemoteDatabaseMethodCheckBox"></CheckBox>
+                                <Button>设置数据库连接</Button>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label>远程服务器方式：</Label>
+                                <CheckBox x:Name="RemoteServerMethodCheckBox"></CheckBox>
+                                <Label>服务器IP地址：</Label>
+                                <TextBox Width="100" x:Name="ServerIPTextBox"></TextBox>
+                                <Label>服务器端口号：</Label>
+                                <TextBox Width="50" x:Name="ServerPortTextBox"></TextBox>
+                            </WrapPanel>
+                        </StackPanel>    
+                    </Expander>
+                    <Expander Header="点名方式">
+                        <StackPanel>
+                            <WrapPanel>
+                                <Label>手机WIFI点名:</Label>
+                                <CheckBox x:Name="CheckWifiCheckBox"></CheckBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label>手动点名:</Label>
+                                <CheckBox x:Name="CheckByHandCheckBox"></CheckBox>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Expander>
+                    
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+    </TabControl>
+    </StackPanel>
+</Controls:MetroWindow>

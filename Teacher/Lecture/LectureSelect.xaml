@@ -1,0 +1,12 @@
+﻿<Controls:MetroWindow x:Class="Teacher.Lecture.LectureSelect"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        Title="LectureSelect" Height="300" Width="300">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <WrapPanel x:Name="LectureSelectPanel">
+            
+        </WrapPanel>
+    </ScrollViewer>
+</Controls:MetroWindow>

@@ -1,0 +1,19 @@
+﻿<Controls:MetroWindow x:Class="Teacher.Question.GiveScore"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        Title="GiveScore" Height="150" Width="300">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Label Content="请给出这次回答的评分"></Label>
+            <WrapPanel>
+                <Button Content="A" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Button Content="B" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Button Content="C" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Button Content="D" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Button Content="E" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+
+            </WrapPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Controls:MetroWindow>

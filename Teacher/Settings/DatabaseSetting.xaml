@@ -1,0 +1,30 @@
+﻿<Controls:MetroWindow x:Class="Teacher.Settings.DatabaseSetting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        Title="DatabaseSetting" Height="163.534" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+    </Grid.RowDefinitions>
+   
+            <Label Grid.Row="0" Grid.Column="0">数据库IP地址:</Label>
+            <TextBox Grid.Row="0" Grid.Column="1" Width="100" x:Name="DatabaseIPTextBox"></TextBox>
+
+        <Label Grid.Row="1" Grid.Column="0">数据库端口:</Label>
+        <TextBox Grid.Row="01" Grid.Column="01" Width="100" x:Name="DatabsePortTextBox"></TextBox>
+
+        <Label Grid.Row="02" Grid.Column="0">登陆用户名:</Label>
+        <PasswordBox Grid.Row="02" Grid.Column="01" Width="100" x:Name="DatabaseUserNameTextBox"></PasswordBox>
+
+        <Label Grid.Row="03" Grid.Column="0">登陆密码:</Label>
+        <PasswordBox Grid.Row="03" Grid.Column="01" Width="102" x:Name="DatabasePasswordTextBox"/>
+        </Grid>
+</Controls:MetroWindow>

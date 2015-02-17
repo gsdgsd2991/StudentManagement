@@ -1,0 +1,23 @@
+﻿<Controls:MetroWindow x:Class="Teacher.Lecture.LectureManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LectureManager" Height="300" Width="533.459">
+    <Window.Resources>
+        <ContextMenu x:Key="RightClickContextMenu">
+            <MenuItem Header="删除" Click="DeleteMenuItem_Click"/>
+            <MenuItem Header="更改课程名称" Click="ChangeNameMenuItem_Click"/>
+            <MenuItem Header="管理课程学生" Click="ManageStudentMenuItem_Click"/>
+        </ContextMenu>
+    </Window.Resources>
+    <StackPanel>
+        <WrapPanel>
+            <Button Click="Add_Click">新增</Button>
+        </WrapPanel>
+        <WrapPanel x:Name="LecturesPanel">              
+            
+        </WrapPanel>
+    </StackPanel>
+
+
+</Controls:MetroWindow>

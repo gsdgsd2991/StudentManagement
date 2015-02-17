@@ -1,0 +1,43 @@
+﻿<Controls:MetroWindow x:Class="Teacher.Lecture.ManageStudent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        Title="ManageStudent" Height="300" Width="300">
+    <Window.Resources>
+        
+        <ContextMenu x:Key="LectureStudentContextMenu">
+            <MenuItem Click="DeleteFromLecture_Click">从课程中删除</MenuItem>
+            <MenuItem Click="ChangeStudentDetailOfLecture_Click">更改学生信息</MenuItem>
+            <MenuItem Click="GenerateNewMark_Click">给学生分配新的识别码</MenuItem>
+        </ContextMenu>
+    </Window.Resources>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="AddStudentFlyout"
+                     Header="学生信息"
+                     Position="Top">
+                <StackPanel>
+                    <Label>姓名</Label>
+                    <TextBox x:Name="StudentNameTextBox"></TextBox>
+                    <Label>学号</Label>
+                    <TextBox x:Name="StudentNumberTextBox"></TextBox>
+                    <Button Click="SubmitInfo_Click"></Button>
+                </StackPanel>
+
+            </Controls:Flyout>
+            
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    <StackPanel>
+       
+        <WrapPanel>
+            <Button Click="AddStudent_Click">增加学生</Button>
+            <Button Click="AddStudentWithFile_Click">导入学生列表</Button>
+        </WrapPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <WrapPanel x:Name="LectureStudentPanel" >
+               
+            </WrapPanel>
+        </ScrollViewer>
+    </StackPanel>
+</Controls:MetroWindow>
