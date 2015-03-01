@@ -45,9 +45,7 @@ namespace Teacher
                 WithMappings.FromMatchingInterface,
                 WithName.Default,
                 WithLifetime.ContainerControlled);
-            var server = new SocketConnection.asyncServer();
-            Ioc.Container.RegisterInstance(server);
-            
+           
             teacher = new Teacher.TeacherController();
             //teacher.SignIn("abc", "def");
             initHomeWorkTab();
@@ -167,16 +165,18 @@ namespace Teacher
             {
                 var lectureSelect = new Lecture.LectureSelect(true);
                 lectureSelect.ShowDialog();
-                var server = Ioc.Container.Resolve<SocketConnection.asyncServer>("server");
-                server.Receive();
+                teacher.StartClass();
+               // var server = Ioc.Container.Resolve<SocketConnection.asyncServer>("server");
+                //server.Receive();
             }
             
         }
         //关闭tcp socket 服务
         private void EndCheckIn_Click(object sender, RoutedEventArgs e)
         {
-            var server = Ioc.Container.Resolve<SocketConnection.asyncServer>("server");
-            server.sockets.Close();
+            teacher.CloseClass();
+            //var server = Ioc.Container.Resolve<SocketConnection.asyncServer>("server");
+            //server.sockets.Close();
         }
         private void CheckInWithoutNet_Click(object sender, RoutedEventArgs e)
         {
