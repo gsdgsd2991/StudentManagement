@@ -1,60 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Core;
-using System.IO;
 
 namespace SocketConnection
 {
-    //用于发送文件
     public class asyncFileClient
     {
-        private readonly static ManualResetEvent allDone = new ManualResetEvent(false);
-        private string fileName = string.Empty;
-        public void SendFile(string from = "127.0.0.1", string to = "127.0.0.1", string fromPort = "10001", string toPort = "10000",string fileName = "")
+        static ManualResetEvent connectDone = new ManualResetEvent(false);
+        static ManualResetEvent sendDone = new ManualResetEvent(false);
+        static string fileName;
+        static void Main(string[] args)
         {
-            this.fileName = fileName;
-            var sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            sender.BeginConnect(new IPEndPoint(IPAddress.Parse(to), int.Parse(toPort)), new AsyncCallback(connectCallback), sender);
-            allDone.WaitOne();
+            //Console.WriteLine("发送方");
+            fileName = Console.ReadLine();
+            var startSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            startSocket.BeginConnect(IPAddress.Parse("127.0.0.1"), 10000, ConnectCallback, startSocket);
+            connectDone.WaitOne();
+            var preInfo = new byte[100];
+            var info = new FileInfo(fileName);
+
+            Array.Copy(Encoding.Default.GetBytes(info.Name), preInfo, info.Name.Length > 50 ? 50 : info.Name.Length);
+            var fileSize = BitConverter.GetBytes(info.Length);
+            Array.Copy(fileSize, 0, preInfo, 50, fileSize.Length);
+            startSocket.BeginSendFile(fileName,
+               preInfo,
+               null,
+               0,
+              new AsyncCallback(SendCallback),
+               startSocket);
+            sendDone.WaitOne();
+           // Console.ReadLine();
+        }
+
+        private static void ConnectCallback(IAsyncResult ar)
+        {
+            connectDone.Set();
+            var reSocket = ar.AsyncState as Socket;
+            reSocket.EndConnect(ar);
+
+
 
         }
 
-        private void connectCallback(IAsyncResult ar)
+        private static void SendCallback(IAsyncResult ar)
         {
-            allDone.Set();
-            var socketRe = ar.AsyncState as Socket;
-            socketRe.EndConnect(ar);
-            Socket messageSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            messageSocket.BeginConnect(socketRe.RemoteEndPoint, MessageCallback, messageSocket);
-            
-            //Console.WriteLine("input the file name");
-            //var fileName = Console.ReadLine();
 
-            //发送文件
-            socketRe.BeginSendFile(fileName, new AsyncCallback(fileSendCallback), socketRe);
-            allDone.WaitOne();
-        }
-
-        private void MessageCallback(IAsyncResult ar)
-        {
-            var socketRe = (Socket)ar.AsyncState;
-            socketRe.EndConnect(ar);
-            FileInfo f = new FileInfo(fileName);
-            //发送文件名,文件大小
-            socketRe.BeginSend(fileName+f.Length);
-        }
-
-        private void fileSendCallback(IAsyncResult ar)
-        {
-            var socketRe = ar.AsyncState as Socket;
-            socketRe.EndSendFile(ar);
-            allDone.Set();
+            var resocket = ar.AsyncState as Socket;
+            resocket.EndSendFile(ar);
+            sendDone.Set();
         }
     }
 }

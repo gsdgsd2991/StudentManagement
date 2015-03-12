@@ -26,6 +26,7 @@ namespace Teacher.Lecture
         public LectureSelect(bool isNet = true)//是否是联网签到
         {
             InitializeComponent();
+            _isNet = isNet;
             foreach(var lecture in LoginStatus.Teacher.Lectures)
             {
                 var tile = new Tile();

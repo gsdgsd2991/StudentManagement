@@ -10,14 +10,17 @@
             <MenuItem Header="管理课程学生" Click="ManageStudentMenuItem_Click"/>
         </ContextMenu>
     </Window.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
     <StackPanel>
         <WrapPanel>
             <Button Click="Add_Click">新增</Button>
         </WrapPanel>
-        <WrapPanel x:Name="LecturesPanel">              
-            
-        </WrapPanel>
-    </StackPanel>
+        
+            <WrapPanel x:Name="LecturesPanel">
 
+            </WrapPanel>
+        
+    </StackPanel>
+    </ScrollViewer>
 
 </Controls:MetroWindow>

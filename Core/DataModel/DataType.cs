@@ -16,6 +16,7 @@ namespace Core.Model
           answerQuestion,//回答问题类型
           raiseHand,//举手
           askQuestion,//提问
-          vote//投票
+          vote,//投票
+        checkIn//签到
     }
 }

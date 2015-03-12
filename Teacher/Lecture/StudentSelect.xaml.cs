@@ -40,14 +40,16 @@ namespace Teacher.Lecture
             var tile = sender as Tile;
             var student = LoginStatus.Lecture.Students.Where(a => a.Sno == tile.Content && a.Name == tile.Title).FirstOrDefault();
             var giveScore = new Question.GiveScore(student,_question);
-            this.Close();
+            giveScore.ShowDialog();
+            //this.Close();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var student = new Core.Model.Student();
             var result = await MahApps.Metro.Controls.Dialogs.DialogManager.ShowMessageAsync(this, "恭喜学号为" + student.Sno + "的" + student.Name + "同学中奖", "确定结果？");
-            
+            var giveScore = new Question.GiveScore(student, _question);
+            giveScore.ShowDialog();
         }
         
     }

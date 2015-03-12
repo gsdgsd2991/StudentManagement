@@ -31,6 +31,7 @@ namespace Teacher.Lecture
 
         public void AddTile()
         {
+            
             if (LoginStatus.Teacher.Lectures != null)
             {
                 foreach (var i in LoginStatus.Teacher.Lectures)
@@ -56,6 +57,7 @@ namespace Teacher.Lecture
                
                teacher.AddLecture(input);
                LecturesPanel.Children.RemoveRange(0, LecturesPanel.Children.Count);
+               
                //var x = Resources.Values;
                AddTile();
            }
@@ -63,8 +65,9 @@ namespace Teacher.Lecture
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            teacher.DeleteLecture((sender as Tile).Title);
-            LecturesPanel.Children.Remove(sender as Tile);           
+            var tile = ContextMenuService.GetPlacementTarget(LogicalTreeHelper.GetParent(sender as MenuItem)) as Tile;
+            teacher.DeleteLecture(tile.Title);
+            LecturesPanel.Children.Remove(tile);           
         }
 
         private async void ChangeNameMenuItem_Click(object sender, RoutedEventArgs e)

@@ -14,6 +14,22 @@ namespace Teacher
         private static Core.Model.Teacher _teacher;
         private static Core.Model.Lecture _lecture;
         private static List<Core.Model.LectureOnce> _lectureOnce;
+        private static Core.Model.Question _question;
+        private static bool _voting;
+
+        public static Core.Model.Question Question
+        {
+            get { return _question; }
+            set { _question = value; }
+        }
+
+        public static bool Voting
+        {
+            get { return _voting; }
+            set { _voting = value; }
+        }
+
+        
 
         public static bool TeacherHasLogin
         {
@@ -24,7 +40,19 @@ namespace Teacher
         public static Core.Model.Teacher Teacher
         {
             get { return _teacher; }
-            set { _teacher = value; }
+            set 
+            {
+                _teacher = value; 
+                //教师登陆不成功
+                if(value == null)
+                {
+                    TeacherHasLogin = false;
+                    _lecture = null;
+                    _lectureOnce = null;
+                    _question = null;
+                    _voting = false;
+                }
+            }
         }
 
         public static Core.Model.Lecture Lecture
@@ -33,7 +61,7 @@ namespace Teacher
             set 
             {
                 _lecture = value;
-                foreach(var student in _lecture.Students)
+               /* foreach(var student in _lecture.Students)
                 {
                     var lectureOnceStudent = new LectureOnce
                     {
@@ -46,7 +74,7 @@ namespace Teacher
                         studentOnlineLast = TimeSpan.Parse("0")
                     };
                     _lectureOnce.Add(lectureOnceStudent);
-                }
+                }*/
             }
         }
     }

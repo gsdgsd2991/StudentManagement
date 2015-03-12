@@ -17,17 +17,19 @@ namespace Teacher.Teacher
             
         }
 
-        public void ChangeSecureNumber(int id)
+
+        public void ChangeSecureNumber(int id,string ip,int port)
         {
+             var guid = Guid.NewGuid().ToString();
             //change secure number in database
-            service.changeSecureNumber(id, Guid.NewGuid().ToString());
+            service.changeSecureNumber(id,guid);
             //send new secure number to student
 
         }
 
         public List<Core.Model.Student> GetStudents(Core.Model.Lecture lecture)
         {
-            return service.where(a => a.Lectures.Exists(b=>b.ID == lecture.ID),false).ToList();
+            return _lectures.where(a => a.ID == lecture.ID, false).FirstOrDefault().Students.ToList();//return service.where(a => a.Lectures.Exists(b=>b.ID == lecture.ID),false).ToList();
         }
 
         public Core.Model.Student GetStudent(string sno)
@@ -35,9 +37,10 @@ namespace Teacher.Teacher
             return service.where(a => a.Sno == sno,false).FirstOrDefault();
         }
 
-        public void DeleteStudent(string sno)
+        public void DeleteStudent(Core.Model.Lecture lecture,string sno)
         {
-            service.where(a => a.Sno == sno, false).FirstOrDefault().isDeleted = true;
+            
+            lecture.Students.Remove(service.where(a=>a.Sno == sno,false).FirstOrDefault());//service.where(a => a.Sno == sno, false).FirstOrDefault().isDeleted = true;
             service.Save();
         }
 

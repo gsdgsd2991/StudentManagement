@@ -5,13 +5,17 @@
         Title="GiveScore" Height="150" Width="300">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <Label Content="请给出这次回答的评分"></Label>
             <WrapPanel>
-                <Button Content="A" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
-                <Button Content="B" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
-                <Button Content="C" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
-                <Button Content="D" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
-                <Button Content="E" Height="50" Width="50" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Label Content="请给出"></Label>
+                <Label x:Name="StudentName"></Label>
+                <Label Content="这次回答的评分"></Label>
+            </WrapPanel>
+            <WrapPanel>
+                <Button Content="A" Height="50" Width="50" x:Name="AButton" Click="AButton_Click" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Button Content="B" Height="50" Width="50" x:Name="BButton" Click="BButton_Click" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Button Content="C" Height="50" Width="50" x:Name="CButton" Click="CButton_Click" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Button Content="D" Height="50" Width="50" x:Name="DButton" Click="DButton_Click" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
+                <Button Content="E" Height="50" Width="50" x:Name="EButton" Click="EButton_Click" Style="{DynamicResource MetroCircleButtonStyle}"></Button>
 
             </WrapPanel>
         </StackPanel>

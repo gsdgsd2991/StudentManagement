@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using Microsoft.Practices.Unity;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Teacher.Lecture
 {
@@ -28,28 +29,26 @@ namespace Teacher.Lecture
         {
             _lectureSelected = lectureSelected;
             InitializeComponent();
-            lectureSelected.Students = lectureSelected.Students;//_controller.GetStudents(lectureSelected);
-            foreach(var i in lectureSelected.Students)
-            {
-                AddTile(i.Sno, i.Name);
-            }
-            
-            
+           // lectureSelected.Students = lectureSelected.Students;//_controller.GetStudents(lectureSelected);
+           
+                AddTile();          
         }
-
-        
+       
 
         private void DeleteFromLecture_Click(object sender, RoutedEventArgs e)
         {
            Tile tile = ContextMenuService.GetPlacementTarget(LogicalTreeHelper.GetParent(sender as MenuItem)) as Tile;
-           _controller.DeleteStudent(tile.Title.Trim());      
+           _controller.DeleteStudent(_lectureSelected,tile.Title);
+           AddTile();
         }
        
-        private void GenerateNewMark_Click(object sender, RoutedEventArgs e)
+        private async void GenerateNewMark_Click(object sender, RoutedEventArgs e)
         {
             Tile tile = ContextMenuService.GetPlacementTarget(LogicalTreeHelper.GetParent(sender as MenuItem)) as Tile;
             var student = _controller.GetStudent(tile.Title.Trim());
-            GenerateSecureNumber(student);
+            string ip = await DialogManager.ShowInputAsync(this,"学生IP","IP地址如：127.0.0.1");
+            string port = await DialogManager.ShowInputAsync(this, "学生端口号", "");
+            _controller.ChangeSecureNumber(student.ID,ip,int.Parse(port));//GenerateSecureNumber(student);
         }
         //弹出添加学生窗口
         private void AddStudent_Click(object sender, RoutedEventArgs e)
@@ -77,32 +76,39 @@ namespace Teacher.Lecture
                 };
                 newStudent.Lectures.Add(_lectureSelected);
                 _controller.AddStudent(newStudent);
-                AddTile(newStudent.Sno, newStudent.Name);
-                GenerateSecureNumber(newStudent);
+                AddTile();
+                //_controller.ChangeSecureNumber(newStudent.ID);//GenerateSecureNumber(newStudent);
             }
             else
             {
                 if(original.Lectures.Where(a=>a.ID == _lectureSelected.ID).FirstOrDefault() ==null)
                 {
                     _controller.AddLecture(original.Sno, _lectureSelected.ID);
-                    AddTile(original.Sno, original.Name);
+                    AddTile();
                 }
             }
 
             
         }
 
-        public void GenerateSecureNumber(Core.Model.Student student)
+        /*public void GenerateSecureNumber(Core.Model.Student student)
         {
 
-        }
+        }*/
 
-        private void AddTile(string sno,string name)
+        private void AddTile()
         {
-            var tile = new Tile();
-            tile.Title = sno;
-            tile.Content = name;
-            LectureStudentPanel.Children.Add(tile);
+            LectureStudentPanel.Children.RemoveRange(0, LectureStudentPanel.Children.Count);
+            if (_lectureSelected.Students == null)
+                _lectureSelected.Students = new List<Core.Model.Student>();
+            foreach (var i in _lectureSelected.Students)
+            {
+                var tile = new Tile();
+                tile.Title = i.Sno;
+                tile.Content = i.Name;
+                tile.ContextMenu = FindResource("LectureStudentContextMenu") as ContextMenu;
+                LectureStudentPanel.Children.Add(tile);
+            }
         }
 
         private void ChangeStudentDetailOfLecture_Click(object sender, RoutedEventArgs e)
@@ -122,7 +128,7 @@ namespace Teacher.Lecture
             _controller.AddStudent(stu);
 
             _controller.AddLecture(stu.Sno, _lectureSelected.ID);
-            AddTile(stu.Sno, stu.Name);
+            AddTile();
         }
     }
 }

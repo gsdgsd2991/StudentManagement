@@ -6,9 +6,9 @@
     <Window.Resources>
         
         <ContextMenu x:Key="LectureStudentContextMenu">
-            <MenuItem Click="DeleteFromLecture_Click">从课程中删除</MenuItem>
-            <MenuItem Click="ChangeStudentDetailOfLecture_Click">更改学生信息</MenuItem>
-            <MenuItem Click="GenerateNewMark_Click">给学生分配新的识别码</MenuItem>
+            <MenuItem Header="从课程中删除" Click="DeleteFromLecture_Click"></MenuItem>
+            <MenuItem Header="更改学生信息" Click="ChangeStudentDetailOfLecture_Click"></MenuItem>
+            <MenuItem Header="给学生分配新的识别码" Click="GenerateNewMark_Click"></MenuItem>
         </ContextMenu>
     </Window.Resources>
     <Controls:MetroWindow.Flyouts>

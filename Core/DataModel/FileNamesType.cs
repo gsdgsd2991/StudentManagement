@@ -20,15 +20,17 @@ namespace Core.DataModel
             set;
         }
 
-        public DateTime SendTime
-        {
-            get;
-            set;
-
-        }
-        
+  
         string TeacherList { get; set; }
 
         string FileList { get; set; }
+
+
+        public string senderSecureNo
+        { get; set; }
+
+
+        public string senderName
+        { get; set; }
     }
 }

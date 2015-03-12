@@ -15,5 +15,7 @@ namespace Core.Model
         //public virtual IEnumerable<Teacher> Teacher { get; set; }
         public virtual Teacher teacher { get; set; }
 
+        public virtual List<LectureAttendent> lestureAttendents { get; set; }
+
     }
 }

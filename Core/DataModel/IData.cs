@@ -7,14 +7,17 @@ using Core.Model;
 
 namespace Core.DataModel
 {
-    public interface IData
+    public class IData
     {
         //发送者Id
-        string sender { get; set; }
+       public string sender { get; set; }
+        //发送者安全码
+       public string senderSecureNo { get; set; }
+        //发送者姓名
+       public string senderName { get; set; }
         //信息类型
-        DataType dataType { get; set; }
-        //发送时间
-        DateTime SendTime { get; set; }
+      public  DataType dataType { get; set; }
+       
 
     }
 }

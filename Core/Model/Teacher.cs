@@ -15,6 +15,7 @@ namespace Core.Model
 
         public string _password;
 
+        public string TeacherNo { get; set; }
       
         public string Password 
         {

@@ -12,66 +12,69 @@ namespace Data
 {
     public class DatabaseRepo<T>:IRepo<T> where T:Entity
     {
-        private readonly DbContext dbcontext;
+        private readonly DbContext _dbcontext;
+       // private readonly DbFactory _dbFactory;
 
         public DatabaseRepo()
         {
-            if(dbcontext == null)
+            //var _dbFactory = new DbFactory();
+            if(_dbcontext == null)
             {
-                dbcontext = DbFactory.GetContext();
+                _dbcontext = DbFactory.GetContext();
+                //_dbcontext = DbFactory.GetContext();
             }
         }
 
         public T Insert(T o)
         {
-            dbcontext.Set<T>().Add(o);
-            dbcontext.SaveChanges();
+            _dbcontext.Set<T>().Add(o);
+            _dbcontext.SaveChanges();
             return o;
-            //throw new NotImplementedException();
+           
         }
 
         public T Get(int id)
         {
-            return dbcontext.Set<T>().First(a => a.ID == id);
-            //throw new NotImplementedException();
+            return _dbcontext.Set<T>().First(a => a.ID == id);
+           
         }
 
         public IQueryable<T> GetAll()
         {
-            return dbcontext.Set<T>();
-            //throw new NotImplementedException();
+            return _dbcontext.Set<T>();
+           
         }
 
         public IQueryable<T> where(System.Linq.Expressions.Expression<Func<T, bool>> prediction, bool showDeleted)
         {
-            return dbcontext.Set<T>().Where(prediction).Where(a => a.isDeleted == false);
-            //throw new NotImplementedException();
+            return _dbcontext.Set<T>().Where(prediction).Where(a => a.isDeleted == false);
+            
         }
 
         public void Save()
         {
-            dbcontext.SaveChanges();
+            _dbcontext.SaveChanges();
         }
 
-        public void Delete()
+        public void Delete(int id)
         {
-            ;
+             _dbcontext.Set<T>().FirstOrDefault(a => a.ID == id).isDeleted = true;
         }
 
-        public void Restore()
+        public void Restore(int id)
         {
-            throw new NotImplementedException();
+            _dbcontext.Set<T>().FirstOrDefault(a => a.ID == id).isDeleted = false;
         }
 
 
         public void Delete(T o)
         {
-            throw new NotImplementedException();
+            o.isDeleted = true;
         }
 
         public void Restore(T o)
         {
-            throw new NotImplementedException();
+            o.isDeleted = false;
         }
     }
 }

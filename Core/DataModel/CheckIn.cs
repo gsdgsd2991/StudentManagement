@@ -6,24 +6,27 @@ using System.Threading.Tasks;
 
 namespace Core.DataModel
 {
-    public class VoteType:IData
+    public class CheckIn:IData
     {
-        public int selection { get; set; }
-
-
-
         public string sender
-        { get; set; }
-
-        public Model.DataType dataType
-        { get; set; }
-
-       
-
+        {
+            get;
+            set;
+        }
 
         public string senderSecureNo
-        { get; set; }
+        {
+            get;
+            set;
+        }
 
+        public Model.DataType dataType
+        {
+            get;
+            set;
+        }
+
+      
 
         public string senderName
         { get; set; }

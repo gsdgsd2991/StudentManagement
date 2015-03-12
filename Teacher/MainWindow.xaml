@@ -4,7 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
         Title="MainWindow" Height="386.842" Width="559.211"
-        >
+               >
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
     <StackPanel x:Name="stackPanel">
     <Menu>
             <MenuItem Header="文件">
@@ -28,28 +29,47 @@
                 <MenuItem Header="手动签到" Click="CheckInWithoutNet_Click"></MenuItem>
             </MenuItem>
     </Menu>
+        
     <TabControl>
         <TabItem Header="提问" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <WrapPanel>  
                         <!--教师当场想到的问题-->
-                        <Button>临时提问</Button>
+                        <Button x:Name="QuestionInTime" Click="QuestionInTime_Click">临时提问</Button>
                         <!--显示各个学生回答问题的情况-->
-                        <Button>题目回答情况</Button>
+                        <Button x:Name="QuestionAnswerSituation" Click="QuestionAnswerSituation_Click">题目回答情况</Button>
                         <!--导入教师写好的题目-->
-                        <Button Content="导入题目"/>
+                        <Button Content="导入题目" x:Name="InputQuestion" Click="InputQuestion_Click"/>
+                        
                         <!--只显示当前教师创建的题目-->
                         <Label>只显示我创建的题目：</Label>
-                        <CheckBox x:Name="ShowQuestionByMine"/>
+                        <CheckBox x:Name="ShowQuestionByMine" IsChecked="True"/>
                         
                        
                     </WrapPanel>
                     <!--显示题目信息-->
-                    <DataGrid x:Name="QuestionsDataGrid">
-                        <DataGrid.Columns>
-                         
-                        </DataGrid.Columns>
+                    <DataGrid x:Name="QuestionsDataGrid" AutoGenerateColumns="false" CanUserSortColumns="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="题目编号" Binding="{Binding Id}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="题目描述" Binding="{Binding Describe}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="正确率" Binding="{Binding CorrectPercentage}"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="投票">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Command="{Binding Path=DataContext.Edit,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">投票</Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="提问">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Command="{Binding Path=DataContext.Edit,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">提问</Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="添加时间" Binding="{Binding AddTime}"></DataGridTextColumn>
+                                </DataGrid.Columns>
                     </DataGrid>
                         
                 </StackPanel>
@@ -68,13 +88,17 @@
                     </WrapPanel>
                     <WrapPanel>
                         <Label>作业收取：</Label>
-                        <TextBox x:Name="folderNameTextBox" MinWidth="100"></TextBox>
-                        <Button x:Name="folderSelectButton">选择文件夹</Button>
-                         <Button x:Name="StartGetFileButton">开始收取</Button>
+                                <Button x:Name="WorkFolder" Click="WorkFolder_Click">作业文件夹打开</Button>
+                                <Button x:Name="StartGetFileButton" Click="StartGetFileButton_Click">开始收取</Button>
                     </WrapPanel>
-                        <WrapPanel x:Name="fileViewerStackPanel">
-                        
-                    </WrapPanel>
+                        <WrapPanel>
+                            <Label>作业要求文档</Label>
+                            <Button Content="发送要求文档" x:Name="SendDocumentButton" Click="SendDocumentButton_Click"></Button>
+                                <Button Content="清空文档列表" x:Name="ClearDocumentButton" Click="ClearDocumentButton_Click"></Button>
+                        </WrapPanel>
+                        <WrapPanel x:Name="fileViewerStackPanel" MinHeight="100"></WrapPanel>
+                        <Label>学生提交的作业</Label>
+                        <WrapPanel x:Name="StudentWorkWrapPanel" MinHeight="50"></WrapPanel>
                 </StackPanel>
             </ScrollViewer>
         </TabItem>
@@ -120,5 +144,7 @@
         </TabItem>
 
     </TabControl>
+        
     </StackPanel>
+    </ScrollViewer>
 </Controls:MetroWindow>

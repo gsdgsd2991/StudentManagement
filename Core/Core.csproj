@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DataModel\answerQuestionType.cs" />
     <Compile Include="DataModel\AskQuestionType.cs" />
+    <Compile Include="DataModel\CheckIn.cs" />
     <Compile Include="DataModel\FileNamesType.cs" />
     <Compile Include="DataModel\FileType.cs" />
     <Compile Include="DataModel\IData.cs" />

@@ -1,4 +1,5 @@
-﻿using Core.Model;
+﻿using Core.DataModel;
+using Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,12 @@ namespace Core.Service
         void ReceiveMessage(IMessage message);
 
         Teacher Get(string userName, string password);
+         void StartReceive();
+         void EndReceive();
+         event EventHandler<FileType> fileReceiveEvent;
+         event EventHandler<RaiseHandType> raiseHandEvent;
+         event EventHandler<answerQuestionType> answerQuestionEvent;
+         event EventHandler<VoteType> voteEvent;
+         event EventHandler<CheckIn> checkInEvent;
     }
 }

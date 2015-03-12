@@ -37,12 +37,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UdpSendFile">
-      <HintPath>C:\Users\gsdgs_000\Desktop\UdpSendFileDemo - 6\UdpSendFile\bin\Debug\UdpSendFile.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="asyncClientTest.cs" />
+    <Compile Include="asyncFileClient.cs" />
+    <Compile Include="asyncFileServer.cs" />
     <Compile Include="asyncServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceivedMessageEventArgs.cs" />

@@ -17,6 +17,8 @@ namespace Core.Model
         public DateTime LectureStart { get; set; }
         //课程结束时间
         public DateTime LectureEnd { get; set; }
+        //学生在线时间
+        public DateTime LectureLast { get; set; }
 
         public virtual Lecture lecture { get; set; }
 

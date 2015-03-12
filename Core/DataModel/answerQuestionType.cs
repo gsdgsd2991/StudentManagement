@@ -8,40 +8,23 @@ namespace Core.DataModel
 {
     public sealed class answerQuestionType:IData
     {
-        public string sender
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string sender { get; set; }
+       
 
         public Model.DataType dataType
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        { get; set; }
 
         public DateTime SendTime
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        { get; set; }
+
+
+        public string senderSecureNo
+        { get; set; }
+
+
+
+
+        public string senderName
+        { get; set; }
     }
 }
